@@ -1,9 +1,13 @@
 package entity
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type Nasabah struct {
-	ID        			uint64    	`gorm:"primary_key;auto_increment;not_null" json:"id"`
+	ID        			uuid.UUID    `gorm:"primary_key;not_null" json:"id"`
 	Nama 				string 		`json:"nama"`
 	NoKtp 				string 		`json:"no_ktp"`
 	TempatLahir 		string 		`json:"tempat_lahir"`

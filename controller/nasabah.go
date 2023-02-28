@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"gin-gorm-nasabah/common"
 	"gin-gorm-nasabah/dto"
 	"gin-gorm-nasabah/service"
@@ -45,7 +44,6 @@ func(nc *nasabahController) CreateNasabah(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, res)
 		return
 	}
-	fmt.Print(nasabah)
 	result, err := nc.nasabahService.CreateNasabah(ctx.Request.Context(), nasabah)
 	if err!= nil {
 		res := common.BuildErrorResponse("Gagal Menambahkan Nasabah", err.Error(), common.EmptyObj{})

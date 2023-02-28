@@ -2,9 +2,9 @@ package repository
 
 import (
 	"context"
-	"encoding/json"
 	"gin-gorm-nasabah/entity"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -33,7 +33,7 @@ func (db *nasabahConnection) GetAllNasabah(ctx context.Context) ([]entity.Nasaba
 }
 
 func (db *nasabahConnection) CreateNasabah(ctx context.Context, nasabah entity.Nasabah) (entity.Nasabah, error) {
-	json.Marshal(nasabah.TanggalLahir)
+	nasabah.ID = uuid.New()
 	nc := db.connection.Create(&nasabah)
 	if nc.Error != nil {
 		return entity.Nasabah{}, nc.Error

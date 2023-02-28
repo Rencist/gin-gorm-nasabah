@@ -1,8 +1,13 @@
 package dto
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type NasabahCreateDto struct {
+	ID        		 uuid.UUID  `gorm:"primary_key" json:"id" form:"id"`
 	Nama             string 	`json:"nama" form:"nama" binding:"required"`
 	NoKtp            string 	`json:"no_ktp" form:"no_ktp" binding:"required"`
 	TempatLahir      string 	`json:"tempat_lahir" form:"tempat_lahir" binding:"required"`
