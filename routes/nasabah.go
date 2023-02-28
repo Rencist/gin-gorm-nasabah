@@ -10,5 +10,6 @@ func NasabahRoutes(router *gin.Engine, NasabahController controller.NasabahContr
 	nasabahRoutes := router.Group("/api/nasabah")
 	{
 		nasabahRoutes.GET("", NasabahController.GetAllNasabah)
+		nasabahRoutes.POST("", NasabahController.CreateNasabah)
 	}
 }

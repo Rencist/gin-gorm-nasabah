@@ -5,7 +5,9 @@ go 1.20
 require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/joho/godotenv v1.5.1
+	github.com/mashingan/smapping v0.1.19
 	gorm.io/driver/postgres v1.4.8
+	gorm.io/gorm v1.24.5
 )
 
 require (
@@ -40,5 +42,4 @@ require (
 	golang.org/x/text v0.7.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/gorm v1.24.5
 )
