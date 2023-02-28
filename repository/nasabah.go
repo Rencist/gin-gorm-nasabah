@@ -12,6 +12,7 @@ import (
 type NasabahRepository interface {
 	GetAllNasabah(ctx context.Context) ([]entity.Nasabah, error)
 	CreateNasabah(ctx context.Context, nasabah entity.Nasabah) (entity.Nasabah, error)
+	UpdateNasabah(ctx context.Context, nasabah entity.Nasabah) (entity.Nasabah, error)
 	DeleteNasabah(ctx context.Context, NasabahID string) (entity.Nasabah, error)
 }
 
@@ -41,6 +42,25 @@ func (db *nasabahConnection) CreateNasabah(ctx context.Context, nasabah entity.N
 		return entity.Nasabah{}, nc.Error
 	}
 	return nasabah, nil
+}
+
+func (db *nasabahConnection) UpdateNasabah(ctx context.Context, nasabah entity.Nasabah) (entity.Nasabah, error) {
+	// var listNasabah []entity.Nasabah
+	// tx := db.connection.Debug().Find(&listNasabah)
+	// if tx.Error != nil {
+	// 	return nil, tx.Error
+	// }
+	// return listNasabah, nil
+	var detailNasabah entity.Nasabah
+	nc := db.connection.Updates(&nasabah)
+	if nc.Error != nil {
+		return entity.Nasabah{}, nc.Error
+	}
+	res := db.connection.First(&detailNasabah)
+	if res.Error != nil {
+		return entity.Nasabah{}, nc.Error
+	}
+	return detailNasabah, nil
 }
 
 func (db *nasabahConnection) DeleteNasabah(ctx context.Context, nasabahID string) (entity.Nasabah, error) {

@@ -11,6 +11,7 @@ func NasabahRoutes(router *gin.Engine, NasabahController controller.NasabahContr
 	{
 		nasabahRoutes.GET("", NasabahController.GetAllNasabah)
 		nasabahRoutes.POST("", NasabahController.CreateNasabah)
+		nasabahRoutes.PUT("/:id", NasabahController.UpdateNasabah)
 		nasabahRoutes.DELETE("/:id", NasabahController.DeleteNasabah)
 	}
 }

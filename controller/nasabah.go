@@ -7,11 +7,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 type NasabahController interface {
 	GetAllNasabah(ctx *gin.Context)
 	CreateNasabah(ctx *gin.Context)
+	UpdateNasabah(ctx *gin.Context)
 	DeleteNasabah(ctx *gin.Context)
 }
 
@@ -53,6 +55,27 @@ func(nc *nasabahController) CreateNasabah(ctx *gin.Context) {
 	}
 
 	res := common.BuildResponse(true, "Berhasil Menambahkan Nasabah", result)
+	ctx.JSON(http.StatusOK, res)
+}
+
+func(nc *nasabahController) UpdateNasabah(ctx *gin.Context) {
+	nasabahID := ctx.Param("id")
+	var nasabah dto.NasabahUpdateDto
+	err := ctx.ShouldBind(&nasabah)
+	if err != nil {
+		res := common.BuildErrorResponse("Gagal Mengupdate Nasabah", err.Error(), common.EmptyObj{})
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+	nasabah.ID, _ = uuid.Parse(nasabahID)
+	result, err := nc.nasabahService.UpdateNasabah(ctx.Request.Context(), nasabah)
+	if err!= nil {
+		res := common.BuildErrorResponse("Gagal Mengupdate Nasabah", err.Error(), common.EmptyObj{})
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+
+	res := common.BuildResponse(true, "Berhasil Mengupdate Nasabah", result)
 	ctx.JSON(http.StatusOK, res)
 }
 

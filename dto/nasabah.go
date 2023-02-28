@@ -22,3 +22,20 @@ type NasabahCreateDto struct {
 	NamaIbuKandung   string 	`json:"nama_ibu_kandung" form:"nama_ibu_kandung" binding:"required"`
 	JenisKelamin     string 	`json:"jenis_kelamin" form:"jenis_kelamin" binding:"required"`
 }
+
+type NasabahUpdateDto struct {
+	ID        		 uuid.UUID  `gorm:"primary_key" json:"id" form:"id"`
+	Nama             string 	`json:"nama" form:"nama"`
+	NoKtp            string 	`json:"no_ktp" form:"no_ktp"`
+	TempatLahir      string 	`json:"tempat_lahir" form:"tempat_lahir"`
+	TanggalLahir     time.Time 	`json:"tanggal_lahir" form:"tanggal_lahir" time_format:"2006-01-02"`
+	StatusKawin      string 	`json:"status_kawin" form:"status_kawin"`
+	Alamat           string 	`json:"alamat" form:"alamat"`
+	Pekerjaan        string 	`json:"pekerjaan" form:"pekerjaan"`
+	NamaPerusahaan   string 	`json:"nama_perusahaan" form:"nama_perusahaan"`
+	AlamatPerusahaan string 	`json:"alamat_perusahaan" form:"alamat_perusahaan"`
+	NoHp             string 	`json:"no_hp" form:"no_hp"`
+	Email            string 	`json:"email" form:"email"`
+	NamaIbuKandung   string 	`json:"nama_ibu_kandung" form:"nama_ibu_kandung"`
+	JenisKelamin     string 	`json:"jenis_kelamin" form:"jenis_kelamin"`
+}
