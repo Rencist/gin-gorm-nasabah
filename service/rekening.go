@@ -11,6 +11,7 @@ import (
 
 type RekeningService interface {
 	CreateRekening(ctx context.Context, rekeningDTO dto.RekeningCreateDto) (entity.Rekening, error)
+	DeleteRekening(ctx context.Context, rekeningID string) (entity.Rekening, error)
 }
 
 type rekeningService struct {
@@ -32,4 +33,8 @@ func(rs *rekeningService) CreateRekening(ctx context.Context, rekeningDTO dto.Re
 		NasabahID: nasabahUUID,
 	}
 	return rs.rekeningRepository.CreateRekening(ctx, rekening)
+}
+
+func(rs *rekeningService) DeleteRekening(ctx context.Context, rekeningID string) (entity.Rekening, error) {
+	return rs.rekeningRepository.DeleteRekening(ctx, rekeningID)
 }

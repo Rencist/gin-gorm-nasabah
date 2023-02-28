@@ -10,5 +10,6 @@ func RekeningRoutes(router *gin.Engine, RekeningController controller.RekeningCo
 	rekeningRoutes := router.Group("/api/rekening")
 	{
 		rekeningRoutes.POST("", RekeningController.CreateRekening)
+		rekeningRoutes.DELETE("/:id", RekeningController.DeleteRekening)
 	}
 }

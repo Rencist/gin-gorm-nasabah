@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	"fmt"
 	"gin-gorm-nasabah/entity"
 
 	"github.com/google/uuid"
@@ -58,8 +57,7 @@ func (db *nasabahConnection) UpdateNasabah(ctx context.Context, nasabah entity.N
 }
 
 func (db *nasabahConnection) DeleteNasabah(ctx context.Context, nasabahID string) (entity.Nasabah, error) {
-	nasabahUUID , err := uuid.Parse(nasabahID)
-	fmt.Println(nasabahUUID)
+	nasabahUUID, err := uuid.Parse(nasabahID)
 	if err != nil {
 		return entity.Nasabah{}, err
 	}

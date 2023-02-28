@@ -81,13 +81,13 @@ func(nc *nasabahController) UpdateNasabah(ctx *gin.Context) {
 
 func(nc *nasabahController) DeleteNasabah(ctx *gin.Context) {
 	nasabahID := ctx.Param("id")
-	result, err := nc.nasabahService.DeleteNasabah(ctx.Request.Context(), nasabahID)
+	_, err := nc.nasabahService.DeleteNasabah(ctx.Request.Context(), nasabahID)
 	if err != nil {
 		res := common.BuildErrorResponse("Gagal Menghapus Nasabah", err.Error(), common.EmptyObj{})
 		ctx.JSON(http.StatusBadRequest, res)
 		return
 	}
 
-	res := common.BuildResponse(true, "Berhasil Menghapus Nasabah", result)
+	res := common.BuildResponse(true, "Berhasil Menghapus Nasabah", common.EmptyObj{})
 	ctx.JSON(http.StatusOK, res)
 }
