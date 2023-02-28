@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"fmt"
 	"gin-gorm-nasabah/entity"
 
 	"github.com/google/uuid"
@@ -11,6 +12,7 @@ import (
 type NasabahRepository interface {
 	GetAllNasabah(ctx context.Context) ([]entity.Nasabah, error)
 	CreateNasabah(ctx context.Context, nasabah entity.Nasabah) (entity.Nasabah, error)
+	DeleteNasabah(ctx context.Context, NasabahID string) (entity.Nasabah, error)
 }
 
 type nasabahConnection struct {
@@ -39,4 +41,17 @@ func (db *nasabahConnection) CreateNasabah(ctx context.Context, nasabah entity.N
 		return entity.Nasabah{}, nc.Error
 	}
 	return nasabah, nil
+}
+
+func (db *nasabahConnection) DeleteNasabah(ctx context.Context, nasabahID string) (entity.Nasabah, error) {
+	nasabahUUID , err := uuid.Parse(nasabahID)
+	fmt.Println(nasabahUUID)
+	if err != nil {
+		return entity.Nasabah{}, err
+	}
+	nc := db.connection.Delete(&entity.Nasabah{}, &nasabahUUID)
+	if nc.Error != nil {
+		return entity.Nasabah{}, nc.Error
+	}
+	return entity.Nasabah{}, nil
 }

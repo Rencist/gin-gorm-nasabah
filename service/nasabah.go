@@ -12,6 +12,7 @@ import (
 type NasabahService interface {
 	GetAllNasabah(ctx context.Context) ([]entity.Nasabah, error)
 	CreateNasabah(ctx context.Context, nasabahDTO dto.NasabahCreateDto) (entity.Nasabah, error)
+	DeleteNasabah(ctx context.Context, nasabahID string) (entity.Nasabah, error)
 }
 
 type nasabahService struct {
@@ -35,4 +36,8 @@ func(ns *nasabahService) CreateNasabah(ctx context.Context, nasabahDTO dto.Nasab
 		return nasabah, err
 	}
 	return ns.nasabahRepository.CreateNasabah(ctx, nasabah)
+}
+
+func(ns *nasabahService) DeleteNasabah(ctx context.Context, nasabahID string) (entity.Nasabah, error) {
+	return ns.nasabahRepository.DeleteNasabah(ctx, nasabahID)
 }

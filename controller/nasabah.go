@@ -12,6 +12,7 @@ import (
 type NasabahController interface {
 	GetAllNasabah(ctx *gin.Context)
 	CreateNasabah(ctx *gin.Context)
+	DeleteNasabah(ctx *gin.Context)
 }
 
 type nasabahController struct {
@@ -52,5 +53,18 @@ func(nc *nasabahController) CreateNasabah(ctx *gin.Context) {
 	}
 
 	res := common.BuildResponse(true, "Berhasil Menambahkan Nasabah", result)
+	ctx.JSON(http.StatusOK, res)
+}
+
+func(nc *nasabahController) DeleteNasabah(ctx *gin.Context) {
+	nasabahID := ctx.Param("id")
+	result, err := nc.nasabahService.DeleteNasabah(ctx.Request.Context(), nasabahID)
+	if err != nil {
+		res := common.BuildErrorResponse("Gagal Menghapus Nasabah", err.Error(), common.EmptyObj{})
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+
+	res := common.BuildResponse(true, "Berhasil Menghapus Nasabah", result)
 	ctx.JSON(http.StatusOK, res)
 }
