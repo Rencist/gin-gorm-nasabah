@@ -11,6 +11,7 @@ import (
 
 type NasabahService interface {
 	GetAllNasabah(ctx context.Context) ([]entity.Nasabah, error)
+	GetNasabahByID(ctx context.Context, nasabahID string) (entity.Nasabah, error)
 	CreateNasabah(ctx context.Context, nasabahDTO dto.NasabahCreateDto) (entity.Nasabah, error)
 	UpdateNasabah(ctx context.Context, nasabahDTO dto.NasabahUpdateDto) (entity.Nasabah, error)
 	DeleteNasabah(ctx context.Context, nasabahID string) (entity.Nasabah, error)
@@ -28,6 +29,10 @@ func NewNasabahService(nr repository.NasabahRepository) NasabahService {
 
 func(ns *nasabahService) GetAllNasabah(ctx context.Context) ([]entity.Nasabah, error) {
 	return ns.nasabahRepository.GetAllNasabah(ctx)
+}
+
+func(ns *nasabahService) GetNasabahByID(ctx context.Context, nasabahID string) (entity.Nasabah, error) {
+	return ns.nasabahRepository.GetNasabahByID(ctx, nasabahID)
 }
 
 func(ns *nasabahService) CreateNasabah(ctx context.Context, nasabahDTO dto.NasabahCreateDto) (entity.Nasabah, error) {

@@ -12,6 +12,7 @@ import (
 
 type NasabahController interface {
 	GetAllNasabah(ctx *gin.Context)
+	GetNasabahByID(ctx *gin.Context)
 	CreateNasabah(ctx *gin.Context)
 	UpdateNasabah(ctx *gin.Context)
 	DeleteNasabah(ctx *gin.Context)
@@ -36,6 +37,19 @@ func(nc *nasabahController) GetAllNasabah(ctx *gin.Context) {
 	}
 
 	res := common.BuildResponse(true, "Berhasil Mendapatkan List Nasabah", result)
+	ctx.JSON(http.StatusOK, res)
+}
+
+func(nc *nasabahController) GetNasabahByID(ctx *gin.Context) {
+	nasabahID := ctx.Param("id")
+	result, err := nc.nasabahService.GetNasabahByID(ctx.Request.Context(), nasabahID)
+	if err != nil {
+		res := common.BuildErrorResponse("Gagal Mendapatkan Nasabah", err.Error(), common.EmptyObj{})
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+
+	res := common.BuildResponse(true, "Berhasil Mendapatkan Nasabah", result)
 	ctx.JSON(http.StatusOK, res)
 }
 
