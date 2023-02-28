@@ -13,6 +13,6 @@ type Rekening struct {
 	CreatedAt 	time.Time 	`json:"created_at" default:"CURRENT_TIMESTAMP"`
 	UpdatedAt 	time.Time 	`json:"updated_at"`
 
-	NasabahID   uuid.UUID 		`gorm:"foreignKey" json:"nasabah_id"`
+	NasabahID   uuid.UUID 	`gorm:"foreignKey" json:"nasabah_id"`
 	Nasabah     *Nasabah  	`gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"nasabah,omitempty"`
 }

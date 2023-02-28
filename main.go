@@ -25,13 +25,19 @@ func main() {
 
 	var (
 		db *gorm.DB = config.SetupDatabaseConnection()
+		
 		nasabahRepository repository.NasabahRepository = repository.NewNasabahRepository(db)
 		nasabahService service.NasabahService = service.NewNasabahService(nasabahRepository)
 		nasabahController controller.NasabahController = controller.NewNasabahController(nasabahService)
+		
+		rekeningRepository repository.RekeningRepository = repository.NewRekeningRepository(db)
+		rekeningService service.RekeningService = service.NewRekeningService(rekeningRepository)
+		rekeningController controller.RekeningController = controller.NewRekeningController(rekeningService)
 	)
 
 	server := gin.Default()
 	routes.NasabahRoutes(server, nasabahController)
+	routes.RekeningRoutes(server, rekeningController)
 
 	port := os.Getenv("PORT")
 	if port == "" {

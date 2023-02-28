@@ -45,12 +45,6 @@ func (db *nasabahConnection) CreateNasabah(ctx context.Context, nasabah entity.N
 }
 
 func (db *nasabahConnection) UpdateNasabah(ctx context.Context, nasabah entity.Nasabah) (entity.Nasabah, error) {
-	// var listNasabah []entity.Nasabah
-	// tx := db.connection.Debug().Find(&listNasabah)
-	// if tx.Error != nil {
-	// 	return nil, tx.Error
-	// }
-	// return listNasabah, nil
 	var detailNasabah entity.Nasabah
 	nc := db.connection.Updates(&nasabah)
 	if nc.Error != nil {
