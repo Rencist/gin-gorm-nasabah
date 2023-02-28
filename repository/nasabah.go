@@ -27,7 +27,7 @@ func NewNasabahRepository(db *gorm.DB) NasabahRepository {
 
 func (db *nasabahConnection) GetAllNasabah(ctx context.Context) ([]entity.Nasabah, error) {
 	var listNasabah []entity.Nasabah
-	tx := db.connection.Debug().Find(&listNasabah)
+	tx := db.connection.Debug().Preload("Rekenings").Find(&listNasabah)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}

@@ -21,6 +21,7 @@ type Nasabah struct {
 	Email 				string 		`json:"email" binding:"email"`
 	NamaIbuKandung 		string 		`json:"nama_ibu_kandung"`
 	JenisKelamin 		string 		`json:"jenis_kelamin"`
+	Rekenings 			[]Rekening 	`json:"rekenings,omitempty"`
 	
 	CreatedAt 			time.Time 	`json:"created_at" default:"CURRENT_TIMESTAMP"`
 	UpdatedAt 			time.Time 	`json:"updated_at"`
