@@ -28,6 +28,26 @@ func NewNasabahController(ns service.NasabahService) NasabahController {
 	}
 }
 
+func isJenisKelaminTrue(jenis_kelamin string) bool {
+	switch jenis_kelamin {
+	case "Laki-Laki":
+		return true
+	case "Perempuan":
+		return true
+	}
+	return false
+}
+
+func isStatusKawin(status_kawin string) bool {
+	switch status_kawin {
+	case "Kawin":
+		return true
+	case "Belum Kawin":
+		return true
+	}
+	return false
+}
+
 func(nc *nasabahController) GetAllNasabah(ctx *gin.Context) {
 	result, err := nc.nasabahService.GetAllNasabah(ctx.Request.Context())
 	if err != nil {
@@ -58,6 +78,18 @@ func(nc *nasabahController) CreateNasabah(ctx *gin.Context) {
 	err := ctx.ShouldBind(&nasabah)
 	if err != nil {
 		res := common.BuildErrorResponse("Gagal Menambahkan Nasabah", err.Error(), common.EmptyObj{})
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+	isJenisKelamin := isJenisKelaminTrue(nasabah.JenisKelamin)
+	if isJenisKelamin == false {
+		res := common.BuildErrorResponse("Jenis Kelamin Tidak Valid", "false", common.EmptyObj{})
+		ctx.JSON(http.StatusBadRequest, res)
+		return
+	}
+	isStatusKawin := isStatusKawin(nasabah.StatusKawin)
+	if isStatusKawin == false {
+		res := common.BuildErrorResponse("Status Kawin Tidak Valid", "false", common.EmptyObj{})
 		ctx.JSON(http.StatusBadRequest, res)
 		return
 	}
