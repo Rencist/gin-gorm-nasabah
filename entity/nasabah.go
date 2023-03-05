@@ -7,7 +7,7 @@ import (
 )
 
 type Nasabah struct {
-	ID        			uuid.UUID    `gorm:"primary_key;not_null" json:"id"`
+	ID        			uuid.UUID   `gorm:"primary_key;not_null" json:"id"`
 	Nama 				string 		`json:"nama"`
 	NoKtp 				string 		`json:"no_ktp"`
 	TempatLahir 		string 		`json:"tempat_lahir"`
@@ -21,7 +21,7 @@ type Nasabah struct {
 	Email 				string 		`json:"email" binding:"email"`
 	NamaIbuKandung 		string 		`json:"nama_ibu_kandung"`
 	JenisKelamin 		string 		`json:"jenis_kelamin"`
-	Rekenings 			[]Rekening 	`json:"rekenings,omitempty"`
+	Rekenings 			[]Rekening 	`gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"rekenings,omitempty"`
 	
 	CreatedAt 			time.Time 	`json:"created_at" default:"CURRENT_TIMESTAMP"`
 	UpdatedAt 			time.Time 	`json:"updated_at"`

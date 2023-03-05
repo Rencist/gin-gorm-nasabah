@@ -28,7 +28,7 @@ func NewNasabahRepository(db *gorm.DB) NasabahRepository {
 
 func (db *nasabahConnection) GetAllNasabah(ctx context.Context) ([]entity.Nasabah, error) {
 	var listNasabah []entity.Nasabah
-	tx := db.connection.Debug().Preload("Rekenings").Find(&listNasabah)
+	tx := db.connection.Preload("Rekenings").Find(&listNasabah)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
@@ -63,12 +63,12 @@ func (db *nasabahConnection) UpdateNasabah(ctx context.Context, nasabah entity.N
 	if nc.Error != nil {
 		return entity.Nasabah{}, nc.Error
 	}
-	res := db.connection.First(&detailNasabah)
+	res := db.connection.Where("id = ?", nasabah.ID).Preload("Rekenings").Find(&detailNasabah)
 	if res.Error != nil {
 		return entity.Nasabah{}, nc.Error
 	}
 	return detailNasabah, nil
-}
+} 
 
 func (db *nasabahConnection) DeleteNasabah(ctx context.Context, nasabahID string) (entity.Nasabah, error) {
 	nasabahUUID, err := uuid.Parse(nasabahID)

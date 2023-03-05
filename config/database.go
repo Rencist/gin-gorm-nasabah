@@ -5,20 +5,11 @@ import (
 	"gin-gorm-nasabah/entity"
 	"os"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func SetupDatabaseConnection() *gorm.DB {
-	if os.Getenv("APP_ENV") != "production" {
-		err := godotenv.Load(".env")
-		if err != nil {
-			fmt.Println(err)
-			panic(err)
-		}
-	}
-
 	dbUser := os.Getenv("DB_USER")
 	dbPass := os.Getenv("DB_PASS")
 	dbHost := os.Getenv("DB_HOST")
